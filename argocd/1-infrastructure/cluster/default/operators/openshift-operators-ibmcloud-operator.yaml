@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openshift-operators-ibmcloud-operator
+spec:
+  destination:
+    namespace: openshift-operators
+    server: https://kubernetes.default.svc
+  project: 1-infrastructure
+  source:
+    path: payload/1-infrastructure/namespace/openshift-operators/ibmcloud-operator
+    repoURL: >-
+      https://github.com/cloud-native-toolkit-test/gitops-ibmcloud-operator-ocp4.git
+    targetRevision: main
+    helm:
+      releaseName: ibmcloud-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences: []
